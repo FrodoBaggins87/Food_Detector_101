@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Chekout Repository
-      uses: action/checkout@v3
+      uses: actions/checkout@v3
     - name: Login to DockerHub
       env: 
            DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
