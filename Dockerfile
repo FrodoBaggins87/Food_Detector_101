@@ -1,16 +1,24 @@
-# read the doc: https://huggingface.co/docs/hub/spaces-sdks-docker
-# you will also find guides on how best to write your Dockerfile
+# Use the official Python image from the Docker Hub
+FROM python:3.9-slim
 
-FROM python:3.9
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-RUN useradd -m -u 1000 user
-USER user
-ENV PATH="/home/user/.local/bin:$PATH"
-
+# Set the working directory
 WORKDIR /app
 
-COPY --chown=user ./requirements.txt requirements.txt
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
+# Copy the requirements file into the container
+COPY requirements.txt .
 
-COPY --chown=user . /app
+# Install the dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code into the container
+COPY . .
+
+# Expose the port Gradio will run on
+EXPOSE 7860
+
+# Command to run the Gradio app
 CMD ["python", "app.py"]
