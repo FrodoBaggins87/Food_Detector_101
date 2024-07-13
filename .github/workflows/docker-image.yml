@@ -22,7 +22,7 @@ jobs:
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag CICD Pipeline
+      run: docker build . --file Dockerfile --tag cicdpipeline
     - name: Push to Dockerhub
-      run: docker push frodobaggins87/CICD Pipeline:latest
+      run: docker push deependra87/cicdpipeline:latest
 
