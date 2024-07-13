@@ -15,14 +15,21 @@ jobs:
     steps:
     - name: Chekout Repository
       uses: actions/checkout@v3
+      
     - name: Login to DockerHub
       env: 
            DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
            DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+           
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - uses: actions/checkout@v4
+    
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag cicdpipeline
+      run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USERNAME}}/cicdpipeline:latest
+      
     - name: Push to Dockerhub
-      run: docker push deependra87/cicdpipeline:latest
+      run: docker push ${{secrets.DOCKER_USERNAME}}/cicdpipeline:latest
+      
+    - name: Give build info
+      run: echo "Required docker image built and pushed to dockerhub successfully"
 
