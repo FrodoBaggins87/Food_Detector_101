@@ -25,7 +25,8 @@ jobs:
       # Step 3: Build the Docker image
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/cicdpipeline:latest 
-
+      - name: Cheeck docker image
+        run: docker images
       # Step 4: Push the Docker image to DockerHub
       - name: Push to DockerHub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/cicdpipeline:latest
